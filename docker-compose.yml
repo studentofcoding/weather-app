@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  weather_api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - WEATHER_API_KEY=fc35a8dd8fd5e5e3bec87a45c67f36ab
+    volumes:
+      - ./weather_data:/app/weather_data
+      - ./weather_events.json:/app/weather_events.json
+    command: >
+      sh -c "touch /app/weather_events.json && 
+             uvicorn app.main:app --host 0.0.0.0 --port 8000"
